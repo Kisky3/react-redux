@@ -1,25 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import ReactMde from "react-mde";
+import ReactDOM from "react-dom";
+import * as Showdown from "showdown";
+import "./index.css";
+import "react-mde/lib/styles/css/react-mde-all.css";
 
-function App() {
+function loadSuggestions(text) {
+  return new Promise((accept, reject) => {
+    setTimeout(() => {
+      const suggestions = [
+        {
+          preview: "Andre",
+          value: "@andre"
+        },
+        {
+          preview: "Angela",
+          value: "@angela"
+        },
+        {
+          preview: "David",
+          value: "@david"
+        },
+        {
+          preview: "Louise",
+          value: "@louise"
+        }
+      ].filter(i => i.preview.toLowerCase().includes(text.toLowerCase()));
+      accept(suggestions);
+    }, 250);
+  });
+}
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true
+});
+
+export default function App() {
+  const [value, setValue] = React.useState("**Hello world!!!**");
+  const [selectedTab, setSelectedTab] = React.useState("write");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <ReactMde
+        value={value}
+        onChange={setValue}
+        selectedTab={selectedTab}
+        onTabChange={setSelectedTab}
+        generateMarkdownPreview={markdown =>
+          Promise.resolve(converter.makeHtml(markdown))
+        }
+        loadSuggestions={loadSuggestions}
+        childProps={{
+          writeButton: {
+            tabIndex: -1
+          }
+        }}
+      />
     </div>
   );
 }
 
-export default App;
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
