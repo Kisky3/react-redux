@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ReactMde from "react-mde";
+import "react-mde/lib/styles/css/react-mde-all.css";
+import ReactMarkdown from "react-markdown";
 
-function App() {
+export default function App() {
+  const [value, setValue] = React.useState("**Hello world!!!**");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div style={{ width: "50%", marginRight: 10 }}>
+        <ReactMde value={value} onChange={setValue} />
+      </div>
+      <div style={{ width: "50%" }}>
+        Preview
+        <ReactMarkdown source={value} />
+      </div>
     </div>
   );
 }
-
-export default App;
