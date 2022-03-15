@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+// 引入store,获取reducer里加工保存的状态
+import store from '../redux/store';
 import './index.css';
 
 export default class Count extends Component {
@@ -32,7 +34,7 @@ export default class Count extends Component {
     return (
       <div>
           <h2>Count Function</h2>
-          <h3>Count: {this.state.count}</h3>
+          <h3>Count: {store.getState()}</h3>
           <select name="num" id="num" ref={ c => this.selectNumber = c} className="select">
               <option value="1">1</option>
               <option value="2">2</option>
