@@ -1,0 +1,20 @@
+.select {
+    margin-right : 20px;
+    width: 200px;
+    height: 40px;
+    padding: 10px;
+}
+
+.button {
+    width: 150px;
+    height: 40px;
+    margin-right: 30px;
+    background-color: antiquewhite;
+    border-radius: 5px;
+    border: solid rgb(233, 233, 233) 1px;
+}
+
+.button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
